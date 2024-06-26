@@ -21,11 +21,13 @@ class LIFOCache(BaseCaching):
             A method that inserts cached items
         """
         if key and item:
-            self.cache_data[key] = item
-        if len(self.cache_data) > BaseCaching.MAX_ITEMS:
-            last = next(reversed(self.cache_data))
-            print("DISCARD: {}".format(last))
-            del self.cache_data[last]
+            if len(self.cache_data) < BaseCaching.MAX_ITEMS:
+                self.cache_data[key] = item
+            else:
+                self.cache_data[key] = item
+                keys = list(self.cache_data.keys())
+                print("DISCARD: {}".format(keys[0]))
+                del self.cache_data[keys[0]]
 
     def get(self, key):
         """
