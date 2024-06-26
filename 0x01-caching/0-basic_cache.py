@@ -30,6 +30,4 @@ class BasicCache(BaseCaching):
             A method that returns value of given key
         """
         if key:
-            return self.cache_data[key]
-        else:
-            return None
+            return self.cache_data.get(key, None)
