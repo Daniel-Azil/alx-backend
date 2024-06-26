@@ -8,28 +8,24 @@ BaseCaching = __import__("BaseCaching").BaseCaching
 
 
 class BasicCache(BaseCaching):
-    """
-        A class BasicCache that inherits from BaseCaching
-        and is a caching system.
+    """ BasicCache defines:
+      - inherits from BaseCaching and is a caching system
+      - where your data are stored (in a dictionary)
     """
     def __init__(self):
-        """
-            Construct the object BasicCache.
+        """ Initiliaze
         """
         super().__init__()
 
     def put(self, key, item):
-        """
-            A mothod that inserts cached items
+        """assign to the {} self.cache_data the item value for the key
         """
         if key and item:
             self.cache_data[key] = item
 
     def get(self, key):
+        """return value in self.cache_data linked to key
         """
-            A method that returns value of given key
-        """
-        if key:
-            return self.cache_data[key]
-        else:
+        if not key or not self.cache_data.get(key):
             return None
+        return self.cache_data.get(key)
