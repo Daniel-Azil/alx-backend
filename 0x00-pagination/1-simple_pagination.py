@@ -21,6 +21,7 @@ def index_range(DATASET: int, DATASET_size: int) -> Tuple[int, int]:
     end = start + DATASET_size
     return (start, end)
 
+
 class Server:
     """
         A class that paginate a database of popular baby names.
