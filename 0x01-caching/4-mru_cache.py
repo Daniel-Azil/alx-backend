@@ -4,8 +4,8 @@
     A module that defines a class MRUCache that inherits from BaseCaching
 """
 
-BaseCaching = __import__("base_caching").BaseCaching
 from collections import OrderedDict
+BaseCaching = __import__("base_caching").BaseCaching
 
 
 class MRUCache(BaseCaching):
