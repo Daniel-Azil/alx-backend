@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
+
 """
     A module that defines a class MRUCache that inherits from BaseCaching
 """
 
 BaseCaching = __import__("base_caching").BaseCaching
+from collections import OrderedDict
 
 
 class MRUCache(BaseCaching):
@@ -15,32 +17,28 @@ class MRUCache(BaseCaching):
             Construct the object MRUCache
         """
         super().__init__()
-        self.asd_order = []
+        self.cache_data = OrderedDict()
 
     def put(self, key, item):
         """
             A method that inserts cached items
         """
-        if key is None or item is None:
-            pass
-        else:
-            size = len(self.cache_data)
-            if size >= BaseCaching.MAX_ITEMS and key not in self.cache_data:
-                print("DISCARD: {}".format(self.asd_order[-1]))
-                del self.cache_data[self.asd_order[-1]]
-                del self.asd_order[-1]
-            if key in self.asd_order:
-                del self.asd_order[self.asd_order.index(key)]
-            self.asd_order.append(key)
-            self.cache_data[key] = item
+        if key and item:
+            if len(self.cache_data) < BaseCaching.MAX_ITEMS:
+                self.cache_data[key] = item
+            else:
+                if key not in self.cache_data:
+                    keys = list(self.cache_data.keys())
+                    print("DISCARD: {}".format(keys[-1]))
+                    del self.cache_data[keys[-1]]
+                self.cache_data[key] = item
+                self.cache_data.move_to_end(key)
 
     def get(self, key):
         """
             A method that returns value of given key
         """
-        if key:
-            if key in self.asd_order:
-                del self.asd_order[self.asd_order.index(key)]
-            self.asd_order.append(key)
-            return self.cache_data.get(key, None)
-        return None
+        if not key or not self.cache_data.get(key):
+            return None
+        self.cache_data.move_to_end(key)
+        return self.cache_data.get(key)
