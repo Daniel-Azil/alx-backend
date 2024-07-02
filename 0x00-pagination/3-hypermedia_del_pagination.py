@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-    A module that removes certain row fromt the dataset when having
+    A module that removes certain row from the dataset when having
     two queries.
 """
 
